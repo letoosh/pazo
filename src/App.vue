@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import InvestnumGame from './components/InvestnumGame.vue'
+import PazoGame from './components/PazoGame.vue'
 </script>
 
 <template>
   <div id="app">
-    <InvestnumGame />
+    <PazoGame />
   </div>
 </template>
 

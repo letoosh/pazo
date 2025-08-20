@@ -1,10 +1,10 @@
-# Investnum - A 2D Adventure Game
+# Pazo - A 2D Adventure Game
 
-Welcome to **Investnum**, a charming 2D platformer adventure game built with Vue.js and TypeScript!
+Welcome to **Pazo**, a charming 2D platformer adventure game built with Vue.js and TypeScript!
 
 ## 🎮 Game Overview
 
-**Investnum** is a quest-based platformer where you control **Pazo**, a brave little hero on a mission to find clues, collect coins, and ultimately escape through the exit door.
+**Pazo** is a quest-based platformer where you control **Pazo**, a brave little bird hero on a mission to find clues, collect coins, and ultimately escape through the exit door.
 
 ## 🎯 Game Objectives
 
@@ -15,19 +15,21 @@ Welcome to **Investnum**, a charming 2D platformer adventure game built with Vue
 
 ## 🕹️ Controls
 
-- **W** or **↑** or **Space** - Jump
+- **W** or **↑** or **Space** - Jump (unlimited soaring!)
 - **A** or **←** - Move left
 - **D** or **→** - Move right
 - **Reset Button** - Start over
 
 ## 🎨 Game Features
 
-- **Smooth 2D platformer physics** with gravity and jumping
+- **Smooth 2D platformer physics** with gravity and unlimited jumping
+- **Bird-like character** with flapping wings animation
 - **Collision detection** for platforms and collectibles
 - **Progressive gameplay** - the key only appears after finding all clues
 - **Beautiful gradient backgrounds** and smooth animations
 - **Responsive controls** with multiple input options
 - **Game state tracking** showing your progress
+- **Fullscreen experience** with floating UI elements
 
 ## 🏗️ Technical Details
 
@@ -36,6 +38,7 @@ Welcome to **Investnum**, a charming 2D platformer adventure game built with Vue
 - **Game loop** with delta-time based updates
 - **Collision detection system** for all game objects
 - **Responsive design** with modern CSS
+- **Sen font** from Google Fonts throughout
 
 ## 🚀 Getting Started
 
@@ -48,7 +51,7 @@ Welcome to **Investnum**, a charming 2D platformer adventure game built with Vue
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd investnum
+   cd pazo
    ```
 
 2. **Install dependencies**
@@ -71,9 +74,11 @@ npm run build
 
 ## 🎯 Game Mechanics
 
-### Player (Pazo)
-- **Blue square character** with cute eyes and mouth
+### Player (Pazo the Bird)
+- **Blue bird character** with cute wings, eyes, beak, and feet
 - **Physics-based movement** with realistic gravity
+- **Unlimited soaring** - jump as many times as you want to gain height
+- **Wing flapping** - wings animate when jumping
 - **Platform collision** - can stand on platforms
 - **Boundary checking** - stays within the game area
 
@@ -89,6 +94,7 @@ npm run build
 - **Strategic placement** of clues and coins
 - **Progressive difficulty** as you move right
 - **Logical flow** from start to finish
+- **Wide world** (2400px) with camera following
 
 ## 🎨 Customization
 
@@ -98,6 +104,7 @@ The game is built to be easily customizable:
 - **Physics values** (gravity, jump force, movement speed) can be adjusted
 - **Colors and styling** can be changed in the CSS
 - **Level layout** can be redesigned by modifying object positions
+- **Kitten SVG** can be replaced with your own design
 
 ## 🐛 Troubleshooting
 
@@ -122,4 +129,4 @@ This project is open source and available under the MIT License.
 
 **Happy gaming! 🎮✨**
 
-*Help Pazo find all the clues and escape from Investnum!*
+*Help Pazo the Bird find all the clues and escape!*
