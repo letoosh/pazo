@@ -205,9 +205,10 @@ const cat = reactive<GameObject>({
 })
 
 // Cat AI variables
-const catVelocity = reactive({ x: 0 })
+const catVelocity = reactive({ x: 0, y: 0 })
 const catDirection = ref(1) // 1 for right, -1 for left
 const catIsMoving = ref(false)
+const catOnGround = ref(false)
 
 // Function to generate level objects dynamically
 const generateLevelObjects = (level: number): GameObject[] => {
@@ -557,6 +558,7 @@ const updateCatAI = (deltaTime: number) => {
   // Stop chasing if Pazo has reached the door (game won)
   if (gameState.gameWon) {
     catVelocity.x = 0
+    catVelocity.y = 0
     return
   }
 
@@ -571,11 +573,21 @@ const updateCatAI = (deltaTime: number) => {
   // Set cat velocity based on direction
   catVelocity.x = catDirection.value * 80 // Slower than Pazo
 
+  // Make cat jump slowly if Pazo is above it
+  const verticalDistance = player.y - cat.y
+  const horizontalDistance = Math.abs(player.x - cat.x)
+
+  // Jump if Pazo is significantly above the cat and cat is on ground
+  if (catOnGround.value && verticalDistance < -50 && horizontalDistance < 300) {
+    catVelocity.y = -400 // Slow jump (slower than Pazo's -300)
+  }
+
+  // Apply gravity to cat
+  catVelocity.y += 800 * (deltaTime / 1000)
+
   // Update cat position
   cat.x += catVelocity.x * (deltaTime / 1000)
-
-  // Keep cat on ground level
-  cat.y = 536 // Ground level - cat height
+  cat.y += catVelocity.y * (deltaTime / 1000)
 
   // Keep cat within world bounds
   if (cat.x < 0) {
@@ -586,11 +598,18 @@ const updateCatAI = (deltaTime: number) => {
     cat.x = worldWidth - cat.width
     catDirection.value = -1
   }
+
+  // Keep cat from going below ground level
+  if (cat.y > 536) {
+    cat.y = 536
+    catVelocity.y = 0
+  }
 }
 
 // Check collisions
 const checkCollisions = () => {
   playerOnGround.value = false
+  catOnGround.value = false
 
   // Check cat collision with Pazo
   if (checkCollision(player, cat)) {
@@ -598,6 +617,22 @@ const checkCollisions = () => {
     gameState.gameOver = true
     playGameOverSound()
     return
+  }
+
+  // Check if cat is on ground level
+  if (cat.y >= 536) {
+    catOnGround.value = true
+  }
+
+  // Check cat collision with platforms
+  for (const obj of gameObjects) {
+    if (obj.type === 'platform' && checkCollision(cat, obj)) {
+      if (catVelocity.y > 0 && cat.y < obj.y) {
+        cat.y = obj.y - cat.height
+        catVelocity.y = 0
+        catOnGround.value = true
+      }
+    }
   }
 
   for (const obj of gameObjects) {
@@ -1103,8 +1138,10 @@ const resetGameState = () => {
   cat.x = worldWidth / 2
   cat.y = 536
   catVelocity.x = 0
+  catVelocity.y = 0
   catDirection.value = 1
   catIsMoving.value = false
+  catOnGround.value = true
 
   for (const obj of gameObjects) {
     if (obj.type === 'coin' || obj.type === 'clue') {
